@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: composer-card-import-util
+spec:
+  restartPolicy: "Never"
+  volumes:
+  - name: composer-card-store
+    persistentVolumeClaim:
+      claimName: composer-pvc
+  - name: shared
+    persistentVolumeClaim:
+      claimName: shared-pvc
+  containers:
+  - name: composer-card-import-util
+    image: ibmblockchain/composer-cli:0.19.5
+    imagePullPolicy: Always
+    command: ["sh", "-c", "composer card create -f ${PEERADMIN_CARDNAME} -p ${K8S_PROFILE} -u ${PEER_ADMIN_USER_NAME} -r PeerAdmin -r ChannelAdmin -c ${ADMIN_PUBKEY} -k ${ADMIN_PRIVATEKEY} && composer card import -f ${PEERADMIN_CARDNAME}"]
+    env:
+    - name: PEERADMIN_CARDNAME
+      value: Org3PeerAdmin1.card
+    - name: PEER_ADMIN_USER_NAME
+      value: Org3PeerAdmin1
+    - name: ADMIN_PUBKEY
+      value: /shared/crypto-config/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp/signcerts/Admin@org3.example.com-cert.pem
+    - name: ADMIN_PRIVATEKEY
+      value: /shared/crypto-config/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp/keystore/key.pem
+    - name: K8S_PROFILE
+      value: /shared/config/TRS-org3.json        
+    volumeMounts:
+    - name: composer-card-store
+      mountPath: /home/composer/.composer
+    - name: shared
+      mountPath: /shared
+
+
+

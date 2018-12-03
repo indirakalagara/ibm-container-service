@@ -1,0 +1,20 @@
+---
+# The service to expose composer playground
+apiVersion: v1
+kind: Service
+metadata:
+  name: composer-playground-2
+  annotations: 
+    service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: public 
+  labels:
+    run: composer-playground-2
+spec:
+  type: LoadBalancer
+  selector:
+    name: composer-playground-2
+  ports:
+  - protocol: TCP
+    nodePort: 31081
+    targetPort: 8080
+    port: 31081
+    name: http

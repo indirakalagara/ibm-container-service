@@ -1,0 +1,125 @@
+{
+    "name": "hlfv1-network",
+    "x-type": "hlfv1",
+    "version": "1.0.0",
+	 "client": {
+        "organization": "Org3",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300",
+                    "eventHub": "300",
+                    "eventReg": "300"
+                },
+                "orderer": "300"
+            }
+        }
+    },
+    "channels": {
+        "composerchannel": {
+            "orderers": [
+                "orderer.example.com"
+            ],
+            "peers": {
+                "peer0.org1.example.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "eventSource": true
+                },
+                "peer0.org2.example.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "eventSource": true
+                },
+                "peer0.org3.example.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "eventSource": true
+                }
+            }
+        }
+    },
+    "organizations": {
+        "Org1": {
+            "mspid": "Org1MSP",
+            "peers": [
+                "peer0.org1.example.com"
+            ],
+            "certificateAuthorities": [
+                "ca.org1.example.com"
+            ]
+        },
+        "Org2": {
+            "mspid": "Org2MSP",
+            "peers": [
+                "peer0.org2.example.com"
+            ],
+            "certificateAuthorities": [
+                "ca.org2.example.com"
+            ]
+        },
+        "Org3": {
+            "mspid": "Org3MSP",
+            "peers": [
+                "peer0.org3.example.com"
+            ],
+            "certificateAuthorities": [
+                "ca.org3.example.com"
+            ]
+        }
+    },
+    "orderers": {
+        "orderer.example.com": {
+            "url": "grpc://blockchain-orderer:31010",
+            "grpcOptions": {
+                "ssl-target-name-override": "orderer.example.com"
+            }
+        }
+    },
+    "peers": {
+        "peer0.org1.example.com": {
+            "url": "grpc://blockchain-org1peer1:30110",
+            "eventUrl": "grpc://blockchain-org1peer1:30111",
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.org1.example.com"
+            }
+        },
+        "peer0.org2.example.com": {
+            "url": "grpc://blockchain-org2peer1:30210",
+            "eventUrl": "grpc://blockchain-org2peer1:30211",
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.org2.example.com"
+            }
+        },
+        "peer0.org3.example.com": {
+            "url": "grpc://blockchain-org3peer1:30310",
+            "eventUrl": "grpc://blockchain-org3peer1:30311",
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.org3.example.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.org1.example.com": {
+            "url": "http://blockchain-ca1:30054",
+            "caName": "ca.org1.example.com",
+            "httpOptions": {
+                "verify": false
+            }
+        },
+        "ca.org2.example.com": {
+            "url": "http://blockchain-ca2:30055",
+			"caName": "ca.org2.example.com",
+            "httpOptions": {
+                "verify": false
+            }
+        },
+        "ca.org3.example.com": {
+            "url": "http://blockchain-ca3:30056",
+            "caName": "ca.org3.example.com",
+            "httpOptions": {
+                "verify": false
+            }
+        }        
+    }
+}

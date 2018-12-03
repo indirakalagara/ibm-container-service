@@ -1,0 +1,24 @@
+1. Create storage
+
+kubectl create -f storage-paid.yaml
+
+2. Create composer-playground service
+
+kubectl create -f composer-playground-services-paid.yaml
+
+
+3. Verify the service "composer-playground" has been created and also bound with EXTERNAL IP address
+
+kubectl get services
+
+4. Create composer playground
+kubectl create -f composer-playground.yaml 
+
+5. Verify composer-playground pods are successfully created
+
+kubectl get pods
+
+NAME                                  READY     STATUS    RESTARTS   AGE
+composer-playground-c5c64455b-2j6rv   1/1       Running   0          5m
+
+
